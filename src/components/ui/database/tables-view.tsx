@@ -3,10 +3,12 @@ import { Loader2Icon, TableIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { SidebarMenuButton, SidebarMenuItem } from "../sidebar";
+import { useTabContext } from "@/context/database/TabContext";
 
 function DatabaseTablesView() {
   const [isFetching, setIsFetching] = useState(true);
   const { fetchTables, tables, dbClient } = useAppContext();
+  const { addTab, activeTab } = useTabContext();
 
   useEffect(() => {
     async function _fetchTables() {
@@ -21,19 +23,23 @@ function DatabaseTablesView() {
     }
 
     _fetchTables();
-   
   }, [dbClient]);
 
   return (
     <>
       {isFetching && <Loader2Icon className="animate-spin" />}
-        {...tables.map((table) => (
-          <SidebarMenuItem>
-            <SidebarMenuButton>
-              <TableIcon className="size-4" /> {table}
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        ))}
+      {...tables.map((table) => (
+        <SidebarMenuItem>
+          <SidebarMenuButton
+            isActive={activeTab === table}
+            onDoubleClick={() => {
+              addTab(table);
+            }}
+          >
+            <TableIcon className="size-4" /> {table}
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      ))}
     </>
   );
 }

@@ -26,7 +26,8 @@ function DatabasesView() {
   }
 
   return (
-    <Select onValueChange={changeDb} defaultValue={currentProfile?.default_database}>
+   <div className="my-auto">
+     <Select onValueChange={changeDb} defaultValue={currentProfile?.default_database}>
       <SelectTrigger className="w-full">
         <SelectValue placeholder="Loading.." />
       </SelectTrigger>
@@ -36,6 +37,7 @@ function DatabasesView() {
         ))}
       </SelectContent>
     </Select>
+   </div>
   );
 }
 

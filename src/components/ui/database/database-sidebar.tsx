@@ -19,8 +19,8 @@ function DatabaseSidebar() {
   const { disconnectDatabase, currentProfile, tables, fetchTables } = useAppContext();
 
   return (
-    <Sidebar>
-      <SidebarHeader>
+    <Sidebar collapsible="offcanvas">
+      <SidebarHeader className="border-b h-14">
         <DatabasesView />
       </SidebarHeader>
       <SidebarContent>
